@@ -8,7 +8,7 @@
 | Check ID | Area | Acceptance target | Current status | Evidence required / blocker |
 |---|---|---|---|---|
 | VM-01 | Repository identity | Correct owner/repository/default branch confirmed | `PASS` for identity only | Repository README and commit read-back; does not prove privacy |
-| VM-02 | Repository privacy | Private visibility confirmed before sensitive archive storage | `BLOCKED` | Latest repository listing previously indicated Public; user said they intend to change it, but no verified private-state evidence yet |
+| VM-02 | Repository privacy | Private visibility confirmed before sensitive archive storage | `PASS` for visibility only | GitHub connector repository listing returned `visibility: private` on 2026-10-21; collaborator/app access and prior public exposure are not assessed |
 | VM-03 | Artifact inventory | All in-scope artifacts listed with source and version | `UNVERIFIED` | Enumerate repository files and connected source references; preserve user clarification that the linked repo contains the intended initial-period conversation only |
 | VM-04 | Original file preservation | Original bytes retained separately from derived summaries | `UNVERIFIED` | Source files, exact byte counts, and SHA-256 |
 | VM-05 | Hash manifest | SHA-256 reproducible for each collected file | `NOT_RUN` | Actual bytes and recorded hashing tool/output |
@@ -29,6 +29,10 @@ No overall PASS is permitted while any required check is FAIL, BLOCKED, NOT_RUN,
 
 | VM-15 | Evidence register validator | Validator rejects malformed IDs/statuses/hashes and accepts the current pending-hash register | `NOT_RUN` | Run `python scripts/validate_evidence.py` against the committed files and capture stdout/exit code |
 | VM-16 | Validator unit tests | All validator unit tests execute and pass in a recorded environment | `NOT_RUN` | Run `python -m unittest discover -s tests -v`; capture output and commit SHA |
-| VM-17 | CI automation | GitHub Actions run is observed successful for a specific commit | `UNVERIFIED` | Workflow definition is committed, but no verified workflow-run result is available in this audit |
+| VM-17 | CI automation | GitHub Actions run is observed successful for a specific commit | `NOT_RUN` | Workflow is wired to the new orchestrator, but no workflow-run result has been retrieved |
 | VM-18 | Artifact register alignment | Every row has 13 columns, required project ID, permitted status, and distinct Git blob SHA / SHA-256 fields | `UNVERIFIED` | The register was corrected and read back; execute the validator and independently inspect parsed CSV rows |
-| VM-19 | Repository privacy | Private visibility and collaborator/app access reviewed before sensitive source archive collection | `BLOCKED` | Latest GitHub listing still reports `public`; do not upload raw conversation exports or sensitive content |
+| VM-19 | Repository privacy | Private visibility and collaborator/app access reviewed before sensitive source archive collection | `PARTIAL` | Private visibility was observed via GitHub connector; collaborator/app access and whether sensitive data was previously exposed remain unreviewed |
+
+| VM-20 | Test orchestrator implementation | Fixed allowlisted checks, bounded timeout, captured stdout/stderr, exit status, and optional JSON report | `IMPLEMENTED_NOT_RUN` | `scripts/run_hap_tests.py` and its unit tests were committed; actual execution is still required |
+| VM-21 | Test orchestrator unit tests | Orchestrator unit tests execute and pass | `NOT_RUN` | Run through the repository CI workflow and inspect the report/artifact |
+| VM-22 | CI execution report | Report artifact is uploaded even when checks fail | `CONFIGURED_NOT_VERIFIED` | Workflow definition includes artifact upload with `if: always()`; successful upload has not been observed |
