@@ -5,6 +5,10 @@
 - Current phase: `PHASE_0_BLOCKED`
 - Phase 1 authorization: `NOT_AUTHORIZED`
 
+## 0. Mandatory work lifecycle wrapper
+
+Before every task, execute the preflight checks in [Work Lifecycle Control Adapter](WORK-LIFECYCLE-CONTROL-ADAPTER.md): identify the task, read current state, verify phase/policy/permissions, define scope and acceptance criteria, and record a preflight decision. If preflight is `BLOCKED` or `UNVERIFIED`, do not start substantive work or perform mutations. After every task, execute postflight: enumerate actual changes, read back repository changes, verify evidence, run only authorized checks, reconcile expected vs actual, record blockers and next steps, and provide the required work report. This is a mandatory workflow requirement in the specification; automated enforcement remains unimplemented until tested.
+
 ## 1. Sequential workflow
 
 1. **Identify** — resolve artifact/source identity and project scope.
