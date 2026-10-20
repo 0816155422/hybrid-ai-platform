@@ -5,6 +5,7 @@ from pathlib import Path
 
 from hap_data_prep import CollectionBlocked, collect_local_file
 from hap_data_prep.local_files import normalize_structured_artifact
+from hap_data_prep.verify import verify_derivative, verify_raw_artifact
 
 
 class LocalCollectionTests(unittest.TestCase):
@@ -74,6 +75,22 @@ class LocalCollectionTests(unittest.TestCase):
         raw = self.collect(relative_path="broken.json", allowed_paths={"broken.json"})
         with self.assertRaisesRegex(CollectionBlocked, "invalid JSON source"):
             normalize_structured_artifact(raw)
+
+    def test_independent_raw_verification_and_tamper_detection(self):
+        raw = self.collect()
+        self.assertEqual(verify_raw_artifact(raw.envelope, raw.content)["status"], "PASS")
+        changed = raw.content + b"tampered"
+        result = verify_raw_artifact(raw.envelope, changed)
+        self.assertEqual(result["status"], "FAIL")
+        self.assertIn("raw content SHA-256 mismatch", result["errors"])
+
+    def test_independent_derivative_lineage_verification(self):
+        (self.root / "records.json").write_text('{"x":1}', encoding="utf-8")
+        raw = self.collect(relative_path="records.json", allowed_paths={"records.json"})
+        derivative, normalized = normalize_structured_artifact(raw)
+        self.assertEqual(verify_derivative(raw.envelope, derivative, normalized)["status"], "PASS")
+        result = verify_derivative(raw.envelope, derivative, normalized + b"tampered")
+        self.assertEqual(result["status"], "FAIL")
 
     def test_does_not_create_files(self):
         before = {p.name for p in self.root.iterdir()}
