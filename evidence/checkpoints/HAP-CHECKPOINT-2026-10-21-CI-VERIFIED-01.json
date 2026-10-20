@@ -1,0 +1,54 @@
+{
+  "checkpoint_id": "HAP-CHECKPOINT-2026-10-21-CI-VERIFIED-01",
+  "project_id": "HAP-2026-OFFLINE-FIRST",
+  "record_type": "append_only_checkpoint",
+  "recorded_at_utc": "2026-10-21",
+  "current_phase": "PHASE_0_BLOCKED",
+  "phase_label": "PHASE_0_DOCUMENTATION_AND_GOVERNANCE_REVIEW",
+  "phase_1_authorization": "PHASE_1_NOT_AUTHORIZED",
+  "specification_status": "REVISION_FINAL_PLUS_PENDING_INDEPENDENT_REVIEW",
+  "database_write_policy": "ZERO_DATABASE_WRITE",
+  "remote_mutation_policy": "PROHIBITED",
+  "human_approval_required": true,
+  "repository_visibility": "PRIVATE_OBSERVED_VIA_GITHUB_CONNECTOR_AND_ACTION_RUN_METADATA",
+  "gate_status": "BLOCKED",
+  "verification_summary": {
+    "workflow_run_id": 39463527350,
+    "workflow_run_url": "https://github.com/0816155422/hybrid-ai-platform/actions/runs/39463527350",
+    "tested_commit_sha": "3861f85a68d151803248f65368f98e3612e3873c",
+    "workflow_conclusion": "success",
+    "python_version": "3.12.15",
+    "evidence_validator": "PASS",
+    "unit_tests": "PASS",
+    "unit_test_count": 9,
+    "test_report_artifact_id": 12284026982,
+    "test_report_artifact_url": "https://github.com/0816155422/hybrid-ai-platform/actions/runs/39463527350/artifacts/12284026982"
+  },
+  "implementation_status": {
+    "fixed_command_test_orchestrator": "CI_PASS_FOR_TESTED_COMMIT",
+    "evidence_validator": "CI_PASS_FOR_TESTED_COMMIT",
+    "unit_tests": "9_PASS_FOR_TESTED_COMMIT",
+    "github_actions_report_upload": "SUCCESSFUL_RUN_VERIFIED",
+    "plugin_installation": "NOT_RUN",
+    "integration_with_existing_extension": "NOT_IMPLEMENTED_OR_NOT_EVIDENCED",
+    "operating_system_security_sandbox": "NOT_IMPLEMENTED_OR_NOT_VERIFIED",
+    "independent_security_review": "PENDING"
+  },
+  "evidence_record": "evidence/execution/EV-HAP-CI-2026-10-21-001.json",
+  "previous_checkpoint": "HAP-CHECKPOINT-2026-10-21-TEST-ORCHESTRATOR-01",
+  "notes": [
+    "The successful CI run was observed in GitHub Actions logs. The tested commit includes the runner, its unit tests, and workflow wiring.",
+    "The successful run executed evidence metadata validation and all 9 unit tests under Python 3.12.15 on ubuntu-latest.",
+    "The uploaded artifact is a report ZIP artifact; the recorded digest is GitHub's uploaded ZIP digest, not a recomputed digest of the inner JSON.",
+    "This result does not establish that an installable plugin package exists or that any operating-system sandbox isolation is enforced.",
+    "No database writes, deployment, plugin installation, or Phase 1 transition occurred.",
+    "Repository visibility is observed as private; collaborator permissions and prior public exposure remain outside this verification."
+  ],
+  "next_steps": [
+    "Inspect the actual existing Extension source and package entry point before implementing integration.",
+    "Design and test a dedicated isolation boundary; do not label the current runner a security sandbox.",
+    "Add negative tests for failed-check artifact upload and report-write failures.",
+    "Only after identifying the real extension/package format, implement and test installation in a named target environment.",
+    "Keep Phase 0 blocked until all required gates and independent review are complete."
+  ]
+}
