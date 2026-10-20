@@ -100,6 +100,14 @@ Never invent a source version, capture time, hash, test result, or approval.
 - [Artifact register](evidence/register/ARTIFACT_REGISTER.csv)
 - [SHA-256 manifest template](evidence/manifests/SHA256_MANIFEST.json)
 - [External source audit and collection status](docs/HAP_EXTERNAL_SOURCE_AUDIT_2026-10-20.md)
+- [Tool, skill, and connector inventory](docs/TOOL-INVENTORY.md)
+- [Proposed database structure and write boundaries](docs/DATABASE-STRUCTURE.md)
+- [Phase 0–3 source collection plan](docs/PHASE0-3-SOURCE-COLLECTION.md)
+- [Execution evidence contract](evidence/execution/README.md)
+- [Current Phase 0 checkpoint snapshot](evidence/checkpoints/CURRENT_STATE.json)
+- [Evidence validator](scripts/validate_evidence.py)
+- [Validator unit tests](tests/test_validate_evidence.py)
+- [GitHub Actions validation workflow](.github/workflows/hap-evidence-validation.yml)
 
 ## Repository operating note
 
