@@ -169,6 +169,68 @@ Conceptual operations:
 
 The interface must not include `write`, `delete`, `update_remote`, `execute_command`, or a generic arbitrary-tool invocation in this phase.
 
+
+
+## 9A. Evidence-informed data preparation and analysis boundary
+
+The source review and proposed data-preparation design are documented in [AI Memory and Data Preparation Research Dossier](AI-MEMORY-DATA-PREPARATION-RESEARCH.md). That dossier reviewed public W3C PROV, DCMI, IETF JSON, NASA data-management/systems-engineering guidance, NIST cloud-security and GenAI risk guidance, ISO/IEC 42001's official overview, and published AI-memory research. It is a research baseline, not an approved schema or compliance claim.
+
+The adapter must distinguish the following artifacts and must never overwrite one with another:
+
+1. **Raw source artifact** — exact bytes or an explicitly labelled external reference.
+2. **Extraction artifact** — parsed text/rows/OCR/transcription/chunks with source locators and extractor version.
+3. **Normalized record** — a typed record mapped to a versioned HAP contract, retaining unknowns and source references.
+4. **Analysis artifact** — summary, comparison, hypothesis, embedding/index, or model-generated reflection, marked as derived.
+5. **Approved project record** — only after independent verification and an authorized human/gate decision; the collector cannot create this status.
+
+Every derivative must link to its immediate parent and original source through `derived_from`/source references. Parsing or normalization must not alter the stored original. A valid schema or provenance graph is evidence of structural consistency only; it does not prove a source claim is true.
+
+### 9A.1 Supported preparation stages
+
+`scope_and_authorize -> acquire_raw -> fingerprint -> detect_and_parse -> extract -> normalize_metadata -> validate -> analyze -> prepare_handoff -> independent_review`
+
+- Scope/authorization comes before collection; unknown source, missing permission, or phase mismatch blocks.
+- Preserve source-native formats. JSON is proposed for typed envelopes and contracts only after schema versioning; JSONL is a candidate for append-oriented records only after canonicalization and concurrency rules are specified. CSV, XML, RDF/PROV, PDF, DOCX, HTML, Markdown, code, images, and archives require format-specific handling and must not be flattened into one lossy universal representation.
+- Every extraction or transformation creates a new derivative with its own identifier, format, schema/tool version, timestamp, parent references, and errors/limitations.
+- AI summaries, memory reflections, vector embeddings, and retrieval indexes are derived artifacts, never original evidence or approved truth. Store the model/tool and configuration reference when observable.
+- Analysis must separate source assertions, observed metadata, extracted text, normalized claims, inference/hypothesis, conflict, unknown, and human approval. These are proposed HAP epistemic statuses, not W3C/DCMI vocabulary.
+- On malformed, oversized, unsupported, partial, or conflicting input, preserve the failure state and stop dependent handoff; do not silently discard or repair the source.
+
+### 9A.2 Provenance mapping
+
+Use W3C PROV's Entity/Activity/Agent pattern as the cross-system lineage model and DCMI terms for general descriptive metadata where useful. Minimum lineage:
+
+`RawArtifact --used_by--> ExtractionActivity --generated--> ExtractionArtifact --used_by--> NormalizationActivity --generated--> NormalizedRecord --used_by--> AnalysisActivity --generated--> AnalysisArtifact`
+
+Record identifiers, source version/locator, capture/processing times when observed, tool/adapter/schema versions, derivation links, validation outcomes, and limitations. Validate unique identifiers and plausible event ordering. Do not represent a PROV validation result as source authenticity or factual correctness.
+
+### 9A.3 Cloud transfer boundary
+
+Cloud transfer is a separate, future adapter, not an implicit part of collection. Its proposed contract must include explicit source/destination, data classification, authorization reference, allowed object scope, least privilege, transport protection, approved at-rest encryption/key custody for sensitive data, exact-byte manifest, receiver-side read-back/hash comparison, retention/disposition, partial/retry behavior, and an auditable failure status.
+
+**Current HAP policy remains `REMOTE_MUTATION_POLICY: PROHIBITED`.** This section grants no permission to upload, synchronize, modify, or delete anything remotely. It defines only design requirements.
+
+### 9A.4 Data-preparation acceptance criteria
+
+The following criteria are design targets; all remain `NOT_RUN` until execution evidence exists:
+
+| ID | Acceptance target | Initial status |
+|---|---|---|
+| DP-001 | Original bytes are preserved separately from extracted/normalized/analysis derivatives | `NOT_RUN` |
+| DP-002 | Unknown source or missing authorization blocks before collection | `NOT_RUN` |
+| DP-003 | Unsupported, malformed, or oversized data is blocked/quarantined with a reason | `NOT_RUN` |
+| DP-004 | Format and schema version are explicit; invalid records fail closed | `NOT_RUN` |
+| DP-005 | Every derivative links to its parent and original source | `NOT_RUN` |
+| DP-006 | SHA-256 is computed over exact bytes and independently recomputed, or remains pending with a reason | `NOT_RUN` |
+| DP-007 | Source assertions, observations, inferences, conflicts, unknowns, and approvals remain distinguishable | `NOT_RUN` |
+| DP-008 | Updates/conflicts are retained as new versions/events rather than silently overwritten | `NOT_RUN` |
+| DP-009 | Analysis abstains when evidence is insufficient or contradictory | `NOT_RUN` |
+| DP-010 | Handoff manifest accounts for included, excluded, partial, and failed items | `NOT_RUN` |
+| DP-011 | Cloud transfer remains blocked without explicit authorization and destination scope | `NOT_RUN` |
+| DP-012 | Receiver-side copy is verified against the manifest where transfer is authorized | `NOT_RUN` |
+| DP-013 | Provenance identifiers and event ordering pass consistency validation | `NOT_RUN` |
+| DP-014 | An independent reviewer can trace an output claim back to source evidence | `NOT_RUN` |
+
 ## 10. Minimum test plan before implementation is considered verified
 
 | Test ID | Scenario | Expected result | Status |
