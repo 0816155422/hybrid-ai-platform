@@ -10,15 +10,16 @@
 
 - `hap_data_prep/local_files.py`: bounded, read-only local-file collector; returns exact source bytes in memory with an envelope containing size and SHA-256; structural normalization for JSON and CSV into a separate deterministic JSON derivative linked to the raw artifact.
 - `hap_data_prep/__init__.py`: package exports.
+- `hap_data_prep/verify.py`: independent code path to recompute raw/derivative hashes and check basic raw-envelope invariants and parent linkage.
 - `schemas/raw-artifact-envelope.schema.json`: draft envelope schema. The `example.invalid` schema ID is a placeholder, not a canonical URI.
 - `tests/test_hap_data_prep_local.py`: tests for exact bytes/digest, missing authorization reference, allowlist, traversal, Phase 1 rejection, size limit, JSON and CSV normalization, malformed JSON, and no file writes.
 - `docs/AI-MEMORY-DATA-PREPARATION-RESEARCH.md`: primary-source research dossier.
 
 ## Verified CI evidence
 
-- GitHub Actions run: [39466370582](https://github.com/0816155422/hybrid-ai-platform/actions/runs/39466370582)
-- Commit: `130acc44a5113db995f3c3f372b954e8ad2c2088`
-- Conclusion: `success`
+- Latest completed CI evidence at the time of this update: [39466518272](https://github.com/0816155422/hybrid-ai-platform/actions/runs/39466518272)
+- Tested commit: `eccad91de6635c1d94c6d248ad804784c4543139`
+- Conclusion: `success`. The subsequent package-export-only commit is awaiting its own run.
 - Scope: the repository's fixed validation and unit-test workflow on the GitHub-hosted runner. This does not prove Android/Termux behavior, offline isolation, security sandboxing, source authenticity, or independent verification.
 - Earlier failed runs occurred while newline expectations in the newly added tests were incorrect. The test expectations were corrected; the later run above succeeded.
 
@@ -44,6 +45,6 @@
 
 - Done: researched source standards and AI-memory papers; wrote the research dossier; implemented local-only raw collection and JSON/CSV structural normalization; added unit tests and CI path coverage.
 - Evidence: links and run above; files listed in this addendum.
-- Not done: independent verifier, automated schema validation, unstructured-document extraction, semantic analysis/memory, external connectors, cloud transfer, installation on target Android, independent review.
+- Not done: automated JSON Schema validation, unstructured-document extraction, semantic analysis/memory, external connectors, cloud transfer, installation on target Android, independent review.
 - Why: these are separate capabilities requiring contracts, permission evidence, and tests; remote mutations and Phase 1 remain prohibited.
 - Next: independent verification layer first, then schema validation and controlled format expansion.
