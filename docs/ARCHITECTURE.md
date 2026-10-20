@@ -35,6 +35,7 @@ This repository documentation action does not authorize database writes, deploym
 5. **Adapter plane** — narrowly scoped connectors for GitHub, local/mobile storage, databases, and AI providers; each integration has an explicit permission boundary.
    - The proposed central raw-data collection control boundary is specified in [Central Data Collection Adapter Design](CENTRAL-DATA-COLLECTION-ADAPTER.md); it remains a draft and is not an implemented capability.
 6. **Verification plane** — independent checks of artifact identity, schema consistency, tests, and gate acceptance criteria.
+7. **Work lifecycle control plane** — mandatory preflight before substantive work and postflight reconciliation/reporting after work; see [Work Lifecycle Control Adapter](WORK-LIFECYCLE-CONTROL-ADAPTER.md). This is a specification, not an implemented enforcement mechanism.
 
 These are logical responsibilities, not claims that separate services or runtimes have already been deployed.
 
