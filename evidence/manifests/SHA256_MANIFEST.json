@@ -1,0 +1,13 @@
+{
+  "project_id": "HAP-2026-OFFLINE-FIRST",
+  "manifest_version": "0.1.0-draft",
+  "status": "TEMPLATE_NOT_COMPLETE",
+  "generated_at_utc": "2026-10-20",
+  "hash_algorithm": "SHA-256",
+  "entries": [],
+  "notes": [
+    "Populate only after exact source bytes are available and SHA-256 is calculated.",
+    "Do not copy Git blob SHA into the sha256 field.",
+    "This empty template is not evidence that all project artifacts were hashed."
+  ]
+}
