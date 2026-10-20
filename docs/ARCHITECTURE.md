@@ -33,7 +33,7 @@ This repository documentation action does not authorize database writes, deploym
 3. **Evidence plane** — immutable execution records, test outputs, SHA-256 manifests, source/version metadata, independent verification.
 4. **Recovery plane** — append-only event ledger, checkpoints, recovery instructions, integrity checks.
 5. **Adapter plane** — narrowly scoped connectors for GitHub, local/mobile storage, databases, and AI providers; each integration has an explicit permission boundary.
-   - The proposed central raw-data collection control boundary is specified in [Central Data Collection Adapter Design](CENTRAL-DATA-COLLECTION-ADAPTER.md); it remains a draft and is not an implemented capability.
+   - The proposed central raw-data collection control boundary is specified in [Central Data Collection Adapter Design](CENTRAL-DATA-COLLECTION-ADAPTER.md), informed by [AI Memory and Data Preparation Research](AI-MEMORY-DATA-PREPARATION-RESEARCH.md). A bounded local-only collector prototype now exists in `hap_data_prep/`; it returns raw bytes and metadata in memory only. It does not stage files, parse or analyze content, validate the authorization reference, access the network/database, or prove independent verification.
 6. **Verification plane** — independent checks of artifact identity, schema consistency, tests, and gate acceptance criteria.
 7. **Work lifecycle control plane** — mandatory preflight before substantive work and postflight reconciliation/reporting after work; see [Work Lifecycle Control Adapter](WORK-LIFECYCLE-CONTROL-ADAPTER.md). This is a specification, not an implemented enforcement mechanism.
 
