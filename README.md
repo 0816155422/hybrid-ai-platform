@@ -87,3 +87,20 @@ Never invent a source version, capture time, hash, test result, or approval.
 - No existing repository files were overwritten.
 - No database, deployment, connector, or external service state was changed by this documentation commit.
 - This index is not a complete transcript archive and does not establish that the listed future artifacts have been collected.
+
+
+## Repository map
+
+- [Architecture baseline](docs/ARCHITECTURE.md)
+- [Data and evidence contracts](docs/DATA-CONTRACTS.md)
+- [Evidence-first workflow](docs/WORKFLOW-SPEC.md)
+- [Verification matrix](docs/VERIFICATION-MATRIX.md)
+- [Append-only decision log](docs/DECISION-LOG.md)
+- [Evidence store rules](evidence/README.md)
+- [Artifact register](evidence/register/ARTIFACT_REGISTER.csv)
+- [SHA-256 manifest template](evidence/manifests/SHA256_MANIFEST.json)
+- [External source audit and collection status](docs/HAP_EXTERNAL_SOURCE_AUDIT_2026-10-20.md)
+
+## Repository operating note
+
+This repository is the designated versioned project store. Only files actually collected and verified may be marked complete. The repository was most recently reported as **Public** by the connected GitHub listing; do not commit confidential history, credentials, or sensitive personal data until Private visibility is independently confirmed. The user requested a “4D” format, but the exact four-D definition is not present in the reviewed project context; its mapping remains blocked rather than guessed.
