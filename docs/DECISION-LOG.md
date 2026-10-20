@@ -42,3 +42,13 @@ This log is append-only. Add new entries; do not silently rewrite earlier decisi
 - Status:
 - Consequences:
 - Review/approval:
+
+
+## DEC-2026-10-20-005 — Repository operational baseline scaffold
+
+- Date: 2026-10-20
+- Decision: Extend the main repository with a tool inventory, proposed database boundary document, Phase 0–3 source collection plan, dependency-free evidence metadata validator, unit tests, GitHub Actions workflow, execution-evidence instructions, and checkpoint snapshot.
+- Source/evidence: Explicit user request to make this repository the primary project store; created file commit IDs are recorded in the task execution response and can be inspected in Git history.
+- Status: `IMPLEMENTED — READ-BACK VERIFICATION PENDING`
+- Consequences: This adds repository structure and a proposed CI validation path only. It does not establish that the workflow has run, that tests pass, that source collection is complete, that the database schema is approved, or that Phase 1 is authorized.
+- Review/approval: Independent review pending.
