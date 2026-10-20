@@ -1,0 +1,2 @@
+artifact_id,project_id,title,artifact_type,origin,original_filename,version,observed_at_utc,byte_size,sha256,git_blob_sha,evidence_status,notes
+ART-0001,HAP-2026-OFFLINE-FIRST,Repository README,documentation,https://github.com/0816155422/hybrid-ai-platform/blob/main/README.md,README.md,UNKNOWN,2026-10-20,,PENDING,220d41d2fa9dfd55bf13fbf00808294f8bb098b8,UNVERIFIED,"Git blob SHA is not SHA-256; byte size and file SHA-256 not calculated"
