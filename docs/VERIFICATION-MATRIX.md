@@ -25,3 +25,10 @@
 ## Gate decision rule
 
 No overall PASS is permitted while any required check is FAIL, BLOCKED, NOT_RUN, or UNVERIFIED. Documentation presence can only pass a documentation-presence check; it cannot establish runtime behavior.
+
+
+| VM-15 | Evidence register validator | Validator rejects malformed IDs/statuses/hashes and accepts the current pending-hash register | `NOT_RUN` | Run `python scripts/validate_evidence.py` against the committed files and capture stdout/exit code |
+| VM-16 | Validator unit tests | All validator unit tests execute and pass in a recorded environment | `NOT_RUN` | Run `python -m unittest discover -s tests -v`; capture output and commit SHA |
+| VM-17 | CI automation | GitHub Actions run is observed successful for a specific commit | `UNVERIFIED` | Workflow definition is committed, but no verified workflow-run result is available in this audit |
+| VM-18 | Artifact register alignment | Every row has 13 columns, required project ID, permitted status, and distinct Git blob SHA / SHA-256 fields | `UNVERIFIED` | The register was corrected and read back; execute the validator and independently inspect parsed CSV rows |
+| VM-19 | Repository privacy | Private visibility and collaborator/app access reviewed before sensitive source archive collection | `BLOCKED` | Latest GitHub listing still reports `public`; do not upload raw conversation exports or sensitive content |
