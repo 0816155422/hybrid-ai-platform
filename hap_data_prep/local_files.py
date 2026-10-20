@@ -134,3 +134,74 @@ def collect_local_file(
         ],
     }
     return CollectedArtifact(envelope=envelope, content=content)
+
+
+def normalize_structured_artifact(collected: CollectedArtifact) -> tuple[dict[str, Any], bytes]:
+    """Create a deterministic JSON derivative from JSON or CSV source bytes.
+
+    The original CollectedArtifact.content is never modified. This function
+    performs syntax/shape normalization only; it does not infer meaning, merge
+    claims, or approve evidence.
+    """
+    import csv
+    import io
+    import json
+
+    source_type = collected.envelope.get("media_type")
+    try:
+        text = collected.content.decode("utf-8", errors="strict")
+    except UnicodeDecodeError as exc:
+        raise CollectionBlocked("structured input must be valid UTF-8") from exc
+
+    if source_type == "application/json":
+        try:
+            value = json.loads(text)
+        except json.JSONDecodeError as exc:
+            raise CollectionBlocked(f"invalid JSON source: {exc.msg}") from exc
+        normalized_value = value
+        normalized_format = "application/json"
+    elif source_type == "text/csv":
+        reader = csv.reader(io.StringIO(text, newline=""))
+        rows = list(reader)
+        if not rows or not rows[0]:
+            raise CollectionBlocked("CSV must contain a non-empty header row")
+        headers = rows[0]
+        if any(not header.strip() for header in headers):
+            raise CollectionBlocked("CSV headers must be non-empty")
+        if len(set(headers)) != len(headers):
+            raise CollectionBlocked("CSV headers must be unique")
+        records = []
+        for row_number, row in enumerate(rows[1:], start=2):
+            if len(row) != len(headers):
+                raise CollectionBlocked(f"CSV row {row_number} has {len(row)} cells; expected {len(headers)}")
+            records.append(dict(zip(headers, row)))
+        normalized_value = records
+        normalized_format = "application/json"
+    else:
+        raise CollectionBlocked("normalization supports only detected application/json or text/csv sources")
+
+    normalized_bytes = (
+        json.dumps(normalized_value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\\n"
+    ).encode("utf-8")
+    derivative = {
+        "schema_version": "0.1.0",
+        "artifact_id": f"NORM-{uuid.uuid4()}",
+        "project_id": collected.envelope["project_id"],
+        "source_artifact_id": collected.envelope["artifact_id"],
+        "derived_from": [collected.envelope["artifact_id"]],
+        "normalization_activity": "JSON_CANONICALIZATION" if source_type == "application/json" else "CSV_TO_JSON_RECORDS",
+        "input_media_type": source_type,
+        "media_type": normalized_format,
+        "byte_size": len(normalized_bytes),
+        "hash_algorithm": "SHA-256",
+        "sha256": hashlib.sha256(normalized_bytes).hexdigest(),
+        "created_at_utc": _utc_now(),
+        "status": "DERIVED_UNVERIFIED",
+        "limitations": [
+            "This is structural normalization only, not semantic analysis.",
+            "The original source bytes remain separate and unchanged.",
+            "No independent verification or approval was performed.",
+        ],
+    }
+    return derivative, normalized_bytes
+
