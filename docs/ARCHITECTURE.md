@@ -33,6 +33,7 @@ This repository documentation action does not authorize database writes, deploym
 3. **Evidence plane** — immutable execution records, test outputs, SHA-256 manifests, source/version metadata, independent verification.
 4. **Recovery plane** — append-only event ledger, checkpoints, recovery instructions, integrity checks.
 5. **Adapter plane** — narrowly scoped connectors for GitHub, local/mobile storage, databases, and AI providers; each integration has an explicit permission boundary.
+   - The proposed central raw-data collection control boundary is specified in [Central Data Collection Adapter Design](CENTRAL-DATA-COLLECTION-ADAPTER.md); it remains a draft and is not an implemented capability.
 6. **Verification plane** — independent checks of artifact identity, schema consistency, tests, and gate acceptance criteria.
 
 These are logical responsibilities, not claims that separate services or runtimes have already been deployed.
