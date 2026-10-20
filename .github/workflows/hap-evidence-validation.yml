@@ -1,0 +1,38 @@
+name: HAP evidence metadata validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "evidence/register/**"
+      - "evidence/manifests/**"
+      - "scripts/validate_evidence.py"
+      - "tests/**"
+      - ".github/workflows/hap-evidence-validation.yml"
+  pull_request:
+    paths:
+      - "evidence/register/**"
+      - "evidence/manifests/**"
+      - "scripts/validate_evidence.py"
+      - "tests/**"
+      - ".github/workflows/hap-evidence-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate evidence register and manifest structure
+        run: python scripts/validate_evidence.py
+      - name: Run validator unit tests
+        run: python -m unittest discover -s tests -v
