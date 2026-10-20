@@ -104,6 +104,7 @@ Never invent a source version, capture time, hash, test result, or approval.
 - [Phase 0–3 source collection plan](docs/PHASE0-3-SOURCE-COLLECTION.md)
 - [AI memory and data preparation research dossier](docs/AI-MEMORY-DATA-PREPARATION-RESEARCH.md)
 - [Central raw data collection adapter](docs/CENTRAL-DATA-COLLECTION-ADAPTER.md)
+- [Local data preparation prototype status and CI evidence](docs/LOCAL-DATA-PREP-PROTOTYPE-STATUS.md)
 - [Raw artifact envelope schema (draft)](schemas/raw-artifact-envelope.schema.json)
 - [Local data preparation prototype](hap_data_prep/local_files.py)
 - [Execution evidence contract](evidence/execution/README.md)
