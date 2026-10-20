@@ -27,12 +27,12 @@
 No overall PASS is permitted while any required check is FAIL, BLOCKED, NOT_RUN, or UNVERIFIED. Documentation presence can only pass a documentation-presence check; it cannot establish runtime behavior.
 
 
-| VM-15 | Evidence register validator | Validator rejects malformed IDs/statuses/hashes and accepts the current pending-hash register | `NOT_RUN` | Run `python scripts/validate_evidence.py` against the committed files and capture stdout/exit code |
-| VM-16 | Validator unit tests | All validator unit tests execute and pass in a recorded environment | `NOT_RUN` | Run `python -m unittest discover -s tests -v`; capture output and commit SHA |
-| VM-17 | CI automation | GitHub Actions run is observed successful for a specific commit | `NOT_RUN` | Workflow is wired to the new orchestrator, but no workflow-run result has been retrieved |
+| VM-15 | Evidence register validator | Validator rejects malformed IDs/statuses/hashes and accepts the current pending-hash register | `PASS` for tested commit only | GitHub Actions run `39463527350`, commit `3861f85a68d151803248f65368f98e3612e3873c`; log: `VALIDATION_OK structure_only=true` |
+| VM-16 | Validator unit tests | All validator unit tests execute and pass in a recorded environment | `PASS` for tested commit only | GitHub Actions run `39463527350`, Python `3.12.15`; 9 unit tests ran and reported `OK` |
+| VM-17 | CI automation | GitHub Actions run is observed successful for a specific commit | `PASS` for run `39463527350` | Job `118768776314` completed with conclusion `success` for commit `3861f85a68d151803248f65368f98e3612e3873c`; this does not pass the overall Phase 0 gate |
 | VM-18 | Artifact register alignment | Every row has 13 columns, required project ID, permitted status, and distinct Git blob SHA / SHA-256 fields | `UNVERIFIED` | The register was corrected and read back; execute the validator and independently inspect parsed CSV rows |
 | VM-19 | Repository privacy | Private visibility and collaborator/app access reviewed before sensitive source archive collection | `PARTIAL` | Private visibility was observed via GitHub connector; collaborator/app access and whether sensitive data was previously exposed remain unreviewed |
 
-| VM-20 | Test orchestrator implementation | Fixed allowlisted checks, bounded timeout, captured stdout/stderr, exit status, and optional JSON report | `IMPLEMENTED_NOT_RUN` | `scripts/run_hap_tests.py` and its unit tests were committed; actual execution is still required |
-| VM-21 | Test orchestrator unit tests | Orchestrator unit tests execute and pass | `NOT_RUN` | Run through the repository CI workflow and inspect the report/artifact |
-| VM-22 | CI execution report | Report artifact is uploaded even when checks fail | `CONFIGURED_NOT_VERIFIED` | Workflow definition includes artifact upload with `if: always()`; successful upload has not been observed |
+| VM-20 | Test orchestrator implementation | Fixed allowlisted checks, bounded timeout, captured stdout/stderr, exit status, and optional JSON report | `PASS` for tested behavior | CI executed the orchestrator successfully; unit tests cover fixed command list, success/failure mapping, timeout handling, and `shell=False` |
+| VM-21 | Test orchestrator unit tests | Orchestrator unit tests execute and pass | `PASS` for tested commit only | GitHub Actions run `39463527350`; all 9 combined unit tests passed |
+| VM-22 | CI execution report | Report artifact is uploaded even when checks fail | `PASS` for successful-run upload only | Artifact `hap-test-report`, ID `12284026982`, uploaded (1,128 bytes); failure-path upload is not yet tested |
