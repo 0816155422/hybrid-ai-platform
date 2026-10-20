@@ -17,9 +17,9 @@
 
 ## Verified CI evidence
 
-- Latest completed CI evidence at the time of this update: [39466518272](https://github.com/0816155422/hybrid-ai-platform/actions/runs/39466518272)
-- Tested commit: `eccad91de6635c1d94c6d248ad804784c4543139`
-- Conclusion: `success`. The subsequent package-export-only commit is awaiting its own run.
+- Latest completed CI evidence: [39466533069](https://github.com/0816155422/hybrid-ai-platform/actions/runs/39466533069)
+- Tested commit: `8ffc580a687188b1d3a1a8f338d1ceae6d749c70`
+- Conclusion: `success` after package exports and integrity-verifier tests were included.
 - Scope: the repository's fixed validation and unit-test workflow on the GitHub-hosted runner. This does not prove Android/Termux behavior, offline isolation, security sandboxing, source authenticity, or independent verification.
 - Earlier failed runs occurred while newline expectations in the newly added tests were incorrect. The test expectations were corrected; the later run above succeeded.
 
