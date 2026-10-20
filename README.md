@@ -7,9 +7,8 @@
 ## Current verified repository facts
 
 - Repository exists and its default branch is `main`.
-- At the time of initial inspection, GitHub reported the repository contents as empty.
-- This commit creates the initial project index only. It does **not** prove that the platform, extension, database, integrations, or tests are implemented or operational.
-- Repository visibility was reported as **Public** at the time of inspection. Change it to Private before adding confidential conversation history, secrets, personal data, or other sensitive material.
+- Repository visibility was observed as `private` through the GitHub connector on 2026-10-21. This verifies the visibility field only; collaborator/app access and prior public exposure were not audited.
+- The repository now contains documentation, an evidence validator, a fixed-command test orchestrator, unit-test definitions, and a GitHub Actions workflow. Presence of these files does **not** prove the tests passed, the extension is installed, or a security sandbox exists.
 
 ## Governance and current phase
 
