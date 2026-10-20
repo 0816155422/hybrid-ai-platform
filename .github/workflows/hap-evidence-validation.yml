@@ -1,4 +1,4 @@
-name: HAP evidence metadata validation
+name: HAP evidence metadata and test validation
 
 on:
   push:
@@ -6,14 +6,14 @@ on:
     paths:
       - "evidence/register/**"
       - "evidence/manifests/**"
-      - "scripts/validate_evidence.py"
+      - "scripts/**"
       - "tests/**"
       - ".github/workflows/hap-evidence-validation.yml"
   pull_request:
     paths:
       - "evidence/register/**"
       - "evidence/manifests/**"
-      - "scripts/validate_evidence.py"
+      - "scripts/**"
       - "tests/**"
       - ".github/workflows/hap-evidence-validation.yml"
   workflow_dispatch:
@@ -24,7 +24,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -32,7 +32,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate evidence register and manifest structure
-        run: python scripts/validate_evidence.py
-      - name: Run validator unit tests
-        run: python -m unittest discover -s tests -v
+      - name: Run fixed HAP verification suite
+        run: python scripts/run_hap_tests.py --report "$RUNNER_TEMP/hap-test-report.json"
+      - name: Upload execution report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hap-test-report
+          path: ${{ runner.temp }}/hap-test-report.json
+          if-no-files-found: warn
+          retention-days: 14
