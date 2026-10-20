@@ -28,6 +28,14 @@ Never store access tokens, API keys, credentials, private keys, cookies, or othe
 | ChatGPT export | Original conversation archive source | Official export instructions are recorded in the external-source audit | Preserve export bytes as original; do not infer complete history from a shared link or project summary. | `NOT_YET_COLLECTED_IN_THIS_REPOSITORY` |
 | Gemini export | Original Gemini conversation archive source | Official export instructions are recorded in the external-source audit | Preserve export bytes as original; distinguish export scope from derived summaries. | `NOT_YET_COLLECTED_IN_THIS_REPOSITORY` |
 
+## Increment added 2026-10-21: fixed-command Python test orchestrator
+
+| Component | Purpose | Current status | Boundary |
+|---|---|---|---|
+| `scripts/run_hap_tests.py` | Run the fixed evidence validator and Python unit-test suite with per-check timeouts, captured output, exit codes, and optional JSON report | `COMMITTED_NOT_RUN` | This is an orchestrator, **not** a security sandbox. It does not accept arbitrary shell commands and does not prove network/filesystem isolation. |
+| `tests/test_run_hap_tests.py` | Test allowlisted step definitions, success/failure mapping, timeout handling, and `shell=False` | `COMMITTED_NOT_RUN` | Test definitions exist; no result is claimed until executed. |
+| GitHub Actions workflow | Invoke the orchestrator and upload the JSON report for 14 days | `CONFIGURED_NOT_VERIFIED` | No workflow run or uploaded artifact has yet been verified. |
+
 ## Required per-tool verification record
 
 Before relying on any tool for a project gate, append a record under `evidence/execution/` with:
