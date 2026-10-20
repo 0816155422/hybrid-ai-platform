@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from hap_data_prep import CollectionBlocked, collect_local_file
+from hap_data_prep.local_files import normalize_structured_artifact
 
 
 class LocalCollectionTests(unittest.TestCase):
@@ -50,6 +51,29 @@ class LocalCollectionTests(unittest.TestCase):
     def test_size_limit_blocks(self):
         with self.assertRaises(CollectionBlocked):
             self.collect(max_bytes=2)
+
+    def test_json_normalization_preserves_raw_artifact(self):
+        (self.root / "records.json").write_text('{"b":2,"a":1}', encoding="utf-8")
+        raw = self.collect(relative_path="records.json", allowed_paths={"records.json"})
+        before = raw.content
+        derivative, normalized = normalize_structured_artifact(raw)
+        self.assertEqual(raw.content, before)
+        self.assertEqual(normalized, b'{"a":1,"b":2}\\n')
+        self.assertEqual(derivative["derived_from"], [raw.envelope["artifact_id"]])
+        self.assertEqual(derivative["status"], "DERIVED_UNVERIFIED")
+
+    def test_csv_normalization(self):
+        (self.root / "records.csv").write_text("id,name\\n1,Ada\\n2,Lin\\n", encoding="utf-8")
+        raw = self.collect(relative_path="records.csv", allowed_paths={"records.csv"})
+        derivative, normalized = normalize_structured_artifact(raw)
+        self.assertEqual(normalized, b'[{"id":"1","name":"Ada"},{"id":"2","name":"Lin"}]\\n')
+        self.assertEqual(derivative["input_media_type"], "text/csv")
+
+    def test_malformed_json_blocks_normalization(self):
+        (self.root / "broken.json").write_text("{bad json", encoding="utf-8")
+        raw = self.collect(relative_path="broken.json", allowed_paths={"broken.json"})
+        with self.assertRaisesRegex(CollectionBlocked, "invalid JSON source"):
+            normalize_structured_artifact(raw)
 
     def test_does_not_create_files(self):
         before = {p.name for p in self.root.iterdir()}
