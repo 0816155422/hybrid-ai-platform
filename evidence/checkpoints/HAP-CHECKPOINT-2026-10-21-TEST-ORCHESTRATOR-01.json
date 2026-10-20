@@ -1,0 +1,76 @@
+{
+  "checkpoint_id": "HAP-CHECKPOINT-2026-10-21-TEST-ORCHESTRATOR-01",
+  "project_id": "HAP-2026-OFFLINE-FIRST",
+  "record_type": "append_only_checkpoint",
+  "recorded_at_utc": "2026-10-21",
+  "current_phase": "PHASE_0_BLOCKED",
+  "phase_label": "PHASE_0_DOCUMENTATION_AND_GOVERNANCE_REVIEW",
+  "phase_1_authorization": "PHASE_1_NOT_AUTHORIZED",
+  "specification_status": "REVISION_FINAL_PLUS_PENDING_INDEPENDENT_REVIEW",
+  "database_write_policy": "ZERO_DATABASE_WRITE",
+  "remote_mutation_policy": "PROHIBITED",
+  "human_approval_required": true,
+  "repository_visibility": "PRIVATE_OBSERVED_VIA_GITHUB_CONNECTOR",
+  "repository_visibility_scope": "Visibility field only; collaborator/app access and prior exposure not audited",
+  "gate_status": "BLOCKED",
+  "implementation_status": {
+    "fixed_command_test_orchestrator": "COMMITTED_NOT_RUN",
+    "orchestrator_unit_tests": "COMMITTED_NOT_RUN",
+    "github_actions_workflow": "CONFIGURED_NOT_VERIFIED",
+    "extension_integration": "NOT_IMPLEMENTED_OR_NOT_EVIDENCED",
+    "plugin_installation": "NOT_RUN",
+    "security_sandbox_isolation": "NOT_IMPLEMENTED_OR_NOT_VERIFIED"
+  },
+  "evidence": [
+    {
+      "path": "scripts/run_hap_tests.py",
+      "url": "https://github.com/0816155422/hybrid-ai-platform/blob/main/scripts/run_hap_tests.py",
+      "commit_sha": "05a11c4ec4d2e2b8954d9e1b8307af43ce5175a3",
+      "status": "FILE_WRITE_CONFIRMED_NOT_EXECUTED"
+    },
+    {
+      "path": "tests/test_run_hap_tests.py",
+      "url": "https://github.com/0816155422/hybrid-ai-platform/blob/main/tests/test_run_hap_tests.py",
+      "commit_sha": "8a4ca71de901e21649231a0e5ade5a526efbeccb",
+      "status": "FILE_WRITE_CONFIRMED_NOT_EXECUTED"
+    },
+    {
+      "path": ".github/workflows/hap-evidence-validation.yml",
+      "url": "https://github.com/0816155422/hybrid-ai-platform/blob/main/.github/workflows/hap-evidence-validation.yml",
+      "commit_sha": "3861f85a68d151803248f65368f98e3612e3873c",
+      "status": "WORKFLOW_UPDATED_RUN_NOT_VERIFIED"
+    },
+    {
+      "path": "docs/VERIFICATION-MATRIX.md",
+      "url": "https://github.com/0816155422/hybrid-ai-platform/blob/main/docs/VERIFICATION-MATRIX.md",
+      "commit_sha": "9483fa7f465263207f89b02d79816213911e422f",
+      "status": "READBACK_PENDING"
+    },
+    {
+      "path": "docs/TOOL-INVENTORY.md",
+      "url": "https://github.com/0816155422/hybrid-ai-platform/blob/main/docs/TOOL-INVENTORY.md",
+      "commit_sha": "28c31bb48702a45f6766a5e84133dae55edcf7dd",
+      "status": "READBACK_PENDING"
+    },
+    {
+      "path": "README.md",
+      "url": "https://github.com/0816155422/hybrid-ai-platform/blob/main/README.md",
+      "commit_sha": "09f789c681f898e2b9d29927759776abd2ae1492",
+      "status": "READBACK_PENDING"
+    }
+  ],
+  "previous_checkpoint": "HAP-CHECKPOINT-2026-10-20-REPO-BASELINE-01",
+  "notes": [
+    "This checkpoint records a stepwise implementation increment and does not replace prior checkpoint history.",
+    "The runner executes only fixed repository-owned checks with subprocess shell disabled and bounded timeouts; it is not a security sandbox.",
+    "No test execution result or GitHub Actions run has been verified yet.",
+    "No database writes, deployment, plugin installation, or Phase 1 transition occurred.",
+    "Repository privacy was observed as private in the GitHub connector listing on 2026-10-21; access control beyond the visibility field was not assessed."
+  ],
+  "next_steps": [
+    "Read back all files added or updated in this increment.",
+    "Execute the exact committed tests in an authorized runner and retain stdout, stderr, exit codes, Python version, commit SHA, and report.",
+    "Review failures and correct them before marking checks PASS.",
+    "Inspect the existing Extension/package layout and integrate this runner only after identifying its actual entry point and packaging format."
+  ]
+}
