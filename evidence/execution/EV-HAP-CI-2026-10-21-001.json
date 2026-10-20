@@ -1,0 +1,49 @@
+{
+  "evidence_id": "EV-HAP-CI-2026-10-21-001",
+  "project_id": "HAP-2026-OFFLINE-FIRST",
+  "record_type": "execution_evidence",
+  "source": "GitHub Actions",
+  "observed_at_utc": "2026-10-20T17:09:14Z",
+  "workflow_name": "HAP evidence metadata and test validation",
+  "workflow_run_id": 39463527350,
+  "workflow_run_url": "https://github.com/0816155422/hybrid-ai-platform/actions/runs/39463527350",
+  "job_id": 118768776314,
+  "job_url": "https://github.com/0816155422/hybrid-ai-platform/actions/runs/39463527350/job/118768776314",
+  "tested_commit_sha": "3861f85a68d151803248f65368f98e3612e3873c",
+  "branch": "main",
+  "runner_environment": {
+    "operating_system": "GitHub-hosted ubuntu-latest",
+    "python_version": "3.12.15"
+  },
+  "checks": [
+    {
+      "name": "evidence_metadata_validation",
+      "status": "PASS",
+      "exit_code": 0,
+      "observed_output": "VALIDATION_OK structure_only=true"
+    },
+    {
+      "name": "python_unit_tests",
+      "status": "PASS",
+      "exit_code": 0,
+      "tests_run": 9,
+      "observed_output": "Ran 9 tests; OK"
+    }
+  ],
+  "overall_workflow_conclusion": "success",
+  "artifact": {
+    "name": "hap-test-report",
+    "artifact_id": 12284026982,
+    "size_in_bytes": 1128,
+    "download_url": "https://github.com/0816155422/hybrid-ai-platform/actions/runs/39463527350/artifacts/12284026982",
+    "uploaded_zip_sha256": "eff3b45690617bbaadbd3a7556219851c785848f1ef748619c73c73001b168e6",
+    "expires_at_utc": "2026-11-03T17:09:18Z",
+    "note": "SHA-256 is the uploaded artifact ZIP digest reported by GitHub, not a separately recomputed digest of the JSON file inside."
+  },
+  "limitations": [
+    "Evidence applies to the tested commit only; later documentation-only commits were not the tested head.",
+    "This proves the fixed CI checks and nine unit tests passed; it does not prove plugin installation, target-device behavior, OS-level sandbox isolation, security review, or Phase 0 gate completion.",
+    "Only the successful-run artifact upload path was observed; upload behavior after a failing test has not been exercised.",
+    "The validator checks evidence metadata structure and does not recompute source SHA-256 values or establish authenticity."
+  ]
+}
