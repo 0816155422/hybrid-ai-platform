@@ -181,7 +181,7 @@ def normalize_structured_artifact(collected: CollectedArtifact) -> tuple[dict[st
         raise CollectionBlocked("normalization supports only detected application/json or text/csv sources")
 
     normalized_bytes = (
-        json.dumps(normalized_value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\\n"
+        json.dumps(normalized_value, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n"
     ).encode("utf-8")
     derivative = {
         "schema_version": "0.1.0",
