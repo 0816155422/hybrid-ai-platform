@@ -32,9 +32,9 @@ Never store access tokens, API keys, credentials, private keys, cookies, or othe
 
 | Component | Purpose | Current status | Boundary |
 |---|---|---|---|
-| `scripts/run_hap_tests.py` | Run the fixed evidence validator and Python unit-test suite with per-check timeouts, captured output, exit codes, and optional JSON report | `COMMITTED_NOT_RUN` | This is an orchestrator, **not** a security sandbox. It does not accept arbitrary shell commands and does not prove network/filesystem isolation. |
-| `tests/test_run_hap_tests.py` | Test allowlisted step definitions, success/failure mapping, timeout handling, and `shell=False` | `COMMITTED_NOT_RUN` | Test definitions exist; no result is claimed until executed. |
-| GitHub Actions workflow | Invoke the orchestrator and upload the JSON report for 14 days | `CONFIGURED_NOT_VERIFIED` | No workflow run or uploaded artifact has yet been verified. |
+| `scripts/run_hap_tests.py` | Run the fixed evidence validator and Python unit-test suite with per-check timeouts, captured output, exit codes, and optional JSON report | `CI_EXECUTION_PASS_FOR_COMMIT_3861f85` | This is an orchestrator, **not** a security sandbox. It does not accept arbitrary shell commands and does not prove network/filesystem isolation. |
+| `tests/test_run_hap_tests.py` | Test allowlisted step definitions, success/failure mapping, timeout handling, and `shell=False` | `PASS_IN_CI_RUN_39463527350` | Four orchestrator tests plus five evidence-validator tests passed in the combined 9-test suite. |
+| GitHub Actions workflow | Invoke the orchestrator and upload the JSON report for 14 days | `PASS_FOR_RUN_39463527350` | Run `39463527350` succeeded; artifact `hap-test-report` (ID `12284026982`) was uploaded. Failure-path upload is not tested. |
 
 ## Required per-tool verification record
 
