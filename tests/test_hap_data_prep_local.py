@@ -58,15 +58,15 @@ class LocalCollectionTests(unittest.TestCase):
         before = raw.content
         derivative, normalized = normalize_structured_artifact(raw)
         self.assertEqual(raw.content, before)
-        self.assertEqual(normalized, b'{"a":1,"b":2}\\n')
+        self.assertEqual(normalized, b'{"a":1,"b":2}\n')
         self.assertEqual(derivative["derived_from"], [raw.envelope["artifact_id"]])
         self.assertEqual(derivative["status"], "DERIVED_UNVERIFIED")
 
     def test_csv_normalization(self):
-        (self.root / "records.csv").write_text("id,name\\n1,Ada\\n2,Lin\\n", encoding="utf-8")
+        (self.root / "records.csv").write_text("id,name\n1,Ada\n2,Lin\n", encoding="utf-8")
         raw = self.collect(relative_path="records.csv", allowed_paths={"records.csv"})
         derivative, normalized = normalize_structured_artifact(raw)
-        self.assertEqual(normalized, b'[{"id":"1","name":"Ada"},{"id":"2","name":"Lin"}]\\n')
+        self.assertEqual(normalized, b'[{"id":"1","name":"Ada"},{"id":"2","name":"Lin"}]\n')
         self.assertEqual(derivative["input_media_type"], "text/csv")
 
     def test_malformed_json_blocks_normalization(self):
