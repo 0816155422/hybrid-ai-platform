@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "hap-work-recorder"
 version = "0.1.0"
-description = "Local append-only HAP work lifecycle recorder with hash-chained JSONL events"
+description = "HAP local-first evidence, work lifecycle, and data preparation components"
 readme = "docs/WORK-RECORDER-INSTALL.md"
 requires-python = ">=3.10"
 license = { text = "Private project / not yet licensed for redistribution" }
@@ -15,4 +15,4 @@ dependencies = []
 hap-worklog = "hap_work_recorder.cli:main"
 
 [tool.setuptools]
-packages = ["hap_work_recorder"]
+packages = ["hap_work_recorder", "hap_data_prep"]
