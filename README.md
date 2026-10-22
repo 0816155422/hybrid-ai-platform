@@ -100,6 +100,7 @@ Never invent a source version, capture time, hash, test result, or approval.
 - [SHA-256 manifest template](evidence/manifests/SHA256_MANIFEST.json)
 - [External source audit and collection status](docs/HAP_EXTERNAL_SOURCE_AUDIT_2026-10-20.md)
 - [Cleaned external evidence snapshot — Batch 001](evidence/external-sources/HAP-EXTERNAL-EVIDENCE-BATCH-001.md)
+- [External evidence index (stable IDs and searchable tags)](evidence/external-sources/EXTERNAL_EVIDENCE_INDEX.csv)
 - [Tool, skill, and connector inventory](docs/TOOL-INVENTORY.md)
 - [Proposed database structure and write boundaries](docs/DATABASE-STRUCTURE.md)
 - [Phase 0–3 source collection plan](docs/PHASE0-3-SOURCE-COLLECTION.md)
