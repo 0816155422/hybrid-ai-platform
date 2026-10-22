@@ -1,0 +1,28 @@
+{
+  "checkpoint_id": "HAP-CHECKPOINT-2026-10-22-WORK-LIFECYCLE-001",
+  "project_id": "HAP-2026-OFFLINE-FIRST",
+  "record_type": "checkpoint_snapshot",
+  "recorded_at_utc": "2026-10-22",
+  "current_phase": "PHASE_0_BLOCKED",
+  "phase_label": "PHASE_0_DOCUMENTATION_AND_GOVERNANCE_REVIEW",
+  "phase_1_authorization": "PHASE_1_NOT_AUTHORIZED",
+  "specification_status": "REVISION_FINAL_PLUS_PENDING_INDEPENDENT_REVIEW",
+  "database_write_policy": "ZERO_DATABASE_WRITE",
+  "remote_mutation_policy": "PROHIBITED",
+  "human_approval_required": true,
+  "gate_status": "BLOCKED",
+  "test_status": "NOT_RUN_FOR_THIS_DOCUMENTATION_TASK",
+  "independent_review_status": "PENDING",
+  "previous_checkpoint": "HAP-CHECKPOINT-2026-10-20-REPO-BASELINE-01",
+  "work_plan_ref": "evidence/execution/PLAN-HAP-2026-10-22-WL-001.md",
+  "execution_evidence_ref": "evidence/execution/EV-HAP-2026-10-22-WL-001.json",
+  "execution_evidence_commit": "d5baa4d12b015b4c84b3d50c7a9e8ef9ae85774e",
+  "notes": [
+    "This checkpoint is an append-only snapshot and does not replace the previous checkpoint.",
+    "A preflight work plan was recorded and read back before follow-up repository writes.",
+    "The execution evidence record documents the preflight baseline and plan verification; postflight reconciliation remains incomplete until the artifact register and final read-back checks are completed.",
+    "No database writes, installation, deployment, or Phase 1 transition are authorized or performed.",
+    "SHA-256 values are not asserted where exact-byte hashing was not performed; Git blob SHAs are separate identifiers."
+  ],
+  "next_step": "Finish artifact-register reconciliation and read back all artifacts; then update the execution record with final postflight results without erasing prior history."
+}
