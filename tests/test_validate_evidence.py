@@ -62,6 +62,11 @@ class EvidenceValidatorTests(unittest.TestCase):
     def test_valid_register_allows_pending_hash(self) -> None:
         self.assertEqual(validate_register(self.write_register([self.valid_row()])), [])
 
+    def test_partial_status_is_allowed(self) -> None:
+        row = self.valid_row()
+        row["evidence_status"] = "PARTIAL"
+        self.assertEqual(validate_register(self.write_register([row])), [])
+
     def test_duplicate_artifact_ids_are_rejected(self) -> None:
         errors = validate_register(self.write_register([
             self.valid_row(), self.valid_row(),
